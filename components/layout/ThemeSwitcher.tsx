@@ -1,7 +1,7 @@
 import {useState} from "react";
 
 export default function ThemeSwitcher() {
-    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(document.documentElement.classList.contains('dark'));
+    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true);
 
     function toggleThemeInState() {
         setIsDarkTheme(_ => document.documentElement.classList.toggle('dark'));
