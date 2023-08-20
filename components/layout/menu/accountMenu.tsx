@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import ProfileIcon from "@/assets/icons/profileIcon";
-import MoreDotIcon from "@/assets/icons/moreDotIcon";
 import Link from "next/link";
 import SettingsIcon from "@/assets/icons/settingsIcon";
 import LogoutIcon from "@/assets/icons/logoutIcon";
@@ -13,19 +12,14 @@ export default function AccountMenu() {
     }
 
     return (
-        <div className={"relative pt-3 flex items-center justify-center mx-3 p-1 border-t border-gray-400/50 h-fit"}>
-            <button
-                onClick={toggleMenu}
-                type={"button"} className={"w-full p-3 rounded-xl hover:bg-gray-200/50 dark:hover:bg-gray-800/50 flex items-center justify-between px-6"}>
-                <div className={"flex space-x-2 items-center"}>
-                    <ProfileIcon size={24} />
-                    <p className={"font-medium"}>Mathixu Dev</p>
-                </div>
-                <MoreDotIcon size={20} />
-            </button>
-
+        <>
+            <div className={"flex items-center border-2 rounded-lg border-gray-500 dark:border-gray-300"}>
+                <button onClick={toggleMenu} type="button" className={"p-1"}>
+                    <ProfileIcon size={28} />
+                </button>
+            </div>
             {isMenuOpen && (
-                <div className={"absolute inset-x-0 -top-44 bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm p-2 mt-2"}>
+                <div className={"absolute inset-x-0 top-16 bg-gray-50 dark:bg-gray-950 rounded-lg shadow-lg p-2 mt-2"}>
                     <ul className={"space-y-2"}>
                         <li>
                             <Link href={"/account"} className={"flex items-center text-lg space-x-3 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800/50"}>
@@ -49,6 +43,6 @@ export default function AccountMenu() {
                     </ul>
                 </div>
             )}
-        </div>
+        </>
     )
 }
