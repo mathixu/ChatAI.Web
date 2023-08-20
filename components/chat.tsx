@@ -15,7 +15,7 @@ export default function Chat() {
                         />
                     ))
                 }
-                <div className={`${!messages[messages.length - 1].isFromUser ? "bg-gray-300/50 dark:bg-gray-900/50" : "bg-gray-100/50 dark:bg-gray-700"} border-t border-gray-950 w-full min-h-[30vh] sm:min-h-[15vh]`}>
+                <div className={`${!messages[messages.length - 1].isFromUser ? "bg-gray-300/50 dark:bg-gray-900/50" : "bg-gray-100/50 dark:bg-gray-700"} border-t border-gray-50 dark:border-gray-950 w-full min-h-[30vh] sm:min-h-[15vh]`}>
                 </div>
             </div>
             <div className={"w-11/12 sm:w-9/12 lg:w-6/12 2xl:w-5/12 h-16 flex items-center justify-center absolute bottom-8"}>
@@ -45,7 +45,7 @@ const Message = ({message, isFirstMessage}: {message: Message, isFirstMessage: b
         <div
             className={`${message.isFromUser ? "bg-gray-300/50 dark:bg-gray-900/50" : "bg-gray-100/50 dark:bg-gray-700"} 
                             w-full flex sm:flex-row flex-col sm:justify-center items-center sm:items-start py-6 text-md sm:relative group
-                            ${!isFirstMessage && "border-t border-gray-950"}
+                            ${!isFirstMessage && "border-t border-gray-50 dark:border-gray-950"}
                             `}>
             <div className={`w-10/12 sm:w-8/12 2xl:w-6/12 order-2 sm:order-1`}>
                 <p className={"text-sm mb-2 italic"}>{message.isFromUser ? "You" : "Chat AI"}:</p>
