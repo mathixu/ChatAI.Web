@@ -15,7 +15,7 @@ export default function Chat() {
                         />
                     ))
                 }
-                <div className={`${!messages[messages.length - 1].isFromUser ? "bg-gray-300/50 dark:bg-gray-900/50" : "bg-gray-100/50 dark:bg-gray-700"} border-t border-gray-950 w-full min-h-[15vh]`}>
+                <div className={`${!messages[messages.length - 1].isFromUser ? "bg-gray-300/50 dark:bg-gray-900/50" : "bg-gray-100/50 dark:bg-gray-700"} border-t border-gray-950 w-full min-h-[30vh] sm:min-h-[15vh]`}>
                 </div>
             </div>
             <div className={"w-11/12 sm:w-9/12 lg:w-6/12 2xl:w-5/12 h-16 flex items-center justify-center absolute bottom-8"}>
@@ -59,7 +59,7 @@ const Message = ({message, isFirstMessage}: {message: Message, isFirstMessage: b
 const ChatTools = ({message} : {message: Message}) => {
     return (
         <div
-            className={`order-1 sm:order-2 sm:ml-8 sm:absolute w-9/12 sm:w-1/12 sm:translate-x-[450%] 2xl:translate-x-[350%] 
+            className={`order-1 sm:order-2 sm:ml-8 sm:absolute w-10/12 sm:w-1/12 sm:translate-x-[450%] 2xl:translate-x-[350%] 
                 text-gray-700 dark:text-gray-400 lg:hidden lg:group-hover:block`}>
             {
                 message.isFromUser ? (
