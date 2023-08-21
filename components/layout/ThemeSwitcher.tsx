@@ -1,3 +1,4 @@
+"use client";
 import {useLayoutEffect, useState} from "react";
 import MoonIcon from "@/assets/icons/moonIcon";
 import SunIcon from "@/assets/icons/sunIcon";
