@@ -36,7 +36,7 @@ export default function Sidebar() {
                 <div className="h-[10vh] flex items-center justify-between px-6 lg:px-0 lg:justify-evenly">
                     <LogoIcon />
                     <div className={"flex items-center space-x-4"}>
-                        <AccountMenu />
+                        <AccountMenu/>
                         <ThemeSwitcher />
                         <div className={"lg:hidden flex items-center border-2 rounded-lg border-gray-500 dark:border-gray-300"}>
                             <button onClick={() => setIsOpen(false)} type="button" className={"p-1"}>
@@ -45,7 +45,7 @@ export default function Sidebar() {
                         </div>
                     </div>
                 </div>
-                <div className={"h-[90vh] flex flex-col justify-start pt-4"}>
+                <div className={"h-[90vh] flex flex-col justify-end justify-start pt-4"}>
                     <NewChatButton />
                     <History />
                     <Copyright />

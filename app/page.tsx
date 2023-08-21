@@ -1,7 +1,11 @@
 import Chat from "@/components/chat";
+import Layout from "@/components/layout";
+import React from "react";
 
 export default function Home() {
   return (
-      <Chat />
+      <Layout>
+        <Chat />
+      </Layout>
   )
 }

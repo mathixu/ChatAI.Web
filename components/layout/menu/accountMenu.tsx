@@ -3,12 +3,25 @@ import ProfileIcon from "@/assets/icons/profileIcon";
 import Link from "next/link";
 import SettingsIcon from "@/assets/icons/settingsIcon";
 import LogoutIcon from "@/assets/icons/logoutIcon";
+import Logout from "@/lib/logout";
+import {useRouter} from "next/navigation";
+import {useAuthContext} from "@/contexts/authContext";
 
 export default function AccountMenu() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
+    }
+
+    const router = useRouter();
+
+    const {signOut} = useAuthContext();
+
+    const logoutUser = () => {
+        Logout();
+        signOut();
+        router.push("/signin");
     }
 
     return (
@@ -35,10 +48,10 @@ export default function AccountMenu() {
                         </li>
                         <hr className={"border-gray-900 dark:border-gray-200"}/>
                         <li>
-                            <Link href={"/logout"} className={"flex items-center text-lg space-x-3 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800/50"}>
+                            <button onClick={logoutUser} className={"w-full flex items-center text-lg space-x-3 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800/50"}>
                                 <LogoutIcon size={24}/>
                                 <span>Logout</span>
-                            </Link>
+                            </button>
                         </li>
                     </ul>
                 </div>
