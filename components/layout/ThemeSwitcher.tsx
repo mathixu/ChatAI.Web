@@ -1,9 +1,13 @@
-import {useState} from "react";
+import {useLayoutEffect, useState} from "react";
 import MoonIcon from "@/assets/icons/moonIcon";
 import SunIcon from "@/assets/icons/sunIcon";
 
 export default function ThemeSwitcher() {
-    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true);
+    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(document.documentElement.classList.contains('dark'));
+
+    useLayoutEffect(() => {
+        setIsDarkTheme(document.documentElement.classList.contains('dark'));
+    }, []);
 
     function toggleThemeInState() {
         setIsDarkTheme(_ => document.documentElement.classList.toggle('dark'));
