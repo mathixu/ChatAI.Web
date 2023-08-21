@@ -49,7 +49,7 @@ export default function Signup() {
         <>
             <div className={"w-full h-screen flex justify-center items-center flex-col"}>
                 <h1 className={"text-4xl font-bold mb-5 text-center"}>Sign Up</h1>
-                <form onSubmit={handleSubmit(onSubmit)} className={"mx-auto p-4"}>
+                <form onSubmit={handleSubmit(onSubmit)} className={"mx-auto sm:p-4"}>
                     <Input
                         type="text"
                         placeholder={"Your Nickname"}

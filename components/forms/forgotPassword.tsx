@@ -42,7 +42,7 @@ export default function ForgotPassword({token}: {token: string}) {
         <>
             <div className={"w-full h-screen flex justify-center items-center flex-col"}>
                 <h1 className={"text-4xl font-bold mb-5 text-center"}>Reset Password</h1>
-                <form onSubmit={handleSubmit(onSubmit)} className={"mx-auto p-4"}>
+                <form onSubmit={handleSubmit(onSubmit)} className={"mx-auto sm:p-4"}>
                     <PasswordInput placeholder={"Enter your password"}
                                    {...register("password", {
                                        required: "Please enter your password",

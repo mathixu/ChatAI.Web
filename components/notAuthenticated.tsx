@@ -19,7 +19,7 @@ export default function NotAuthenticated({children}: { children: React.ReactNode
             <div className={"h-full w-full items-center justify-center"}>
                 {children}
             </div>
-            <div className={"absolute top-16 left-16"}>
+            <div className={"absolute top-4 left-4 sm:top-16 sm:left-16"}>
                 <ThemeSwitcher />
             </div>
         </div>
