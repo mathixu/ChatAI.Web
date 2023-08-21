@@ -4,7 +4,7 @@ import MoonIcon from "@/assets/icons/moonIcon";
 import SunIcon from "@/assets/icons/sunIcon";
 
 export default function ThemeSwitcher() {
-    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(document.documentElement.classList.contains('dark'));
+    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true);
 
     useLayoutEffect(() => {
         setIsDarkTheme(document.documentElement.classList.contains('dark'));
