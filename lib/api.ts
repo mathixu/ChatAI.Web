@@ -1,6 +1,6 @@
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import Cookies from "js-cookie";
-import Logout from "@/lib/logout";
+import Logout from "@/lib/functions/logout";
 
 export default axios.create({
     baseURL: "https://api.chatai.mathixu.dev",
@@ -26,6 +26,25 @@ axiosAuth.interceptors.request.use(
     }
 );
 
+let isRefreshing: boolean = false;
+interface PromiseQueueItem {
+    resolve: (value?: string | null) => void;
+    reject: (reason?: any) => void;
+}
+let failedQueue: PromiseQueueItem[] = [];
+
+const processQueue = (error: any, token: string | null = null): void => {
+    failedQueue.forEach(prom => {
+        if (error) {
+            prom.reject(error);
+        } else {
+            prom.resolve(token);
+        }
+    });
+
+    failedQueue = [];
+};
+
 axiosAuth.interceptors.response.use(
     (response) => {
         return response;
@@ -39,27 +58,43 @@ axiosAuth.interceptors.response.use(
         }
 
         if (error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true;
+            if (isRefreshing) {
+                return new Promise((resolve, reject) => {
+                    failedQueue.push({ resolve, reject });
+                }).then(token => {
+                    originalRequest.headers.Authorization = 'Bearer ' + token;
+                    return axiosAuth(originalRequest);
+                }).catch(err => Promise.reject(err));
+            }
 
+            originalRequest._retry = true;
+            isRefreshing = true;
             const refreshToken = Cookies.get("refresh_token");
 
-            return axiosAuth
-                .post("/auth/refresh", {refreshToken})
-                .then((res: AxiosResponse) => {
+            return axiosAuth.post("/auth/refresh", { refreshToken })
+                .then((res) => {
                     if (res.status === 201) {
                         Cookies.set("access_token", res.data.accessToken, { expires: 30, secure: true });
                         Cookies.set("refresh_token", res.data.refreshToken, { expires: 30, secure: true });
                         Cookies.set("user", JSON.stringify(res.data), { expires: 30, secure: true });
 
                         axiosAuth.defaults.headers.common["Authorization"] =
-                            "Bearer " + res.data.access_token;
+                            "Bearer " + res.data.accessToken;
 
+                        processQueue(null, res.data.accessToken);
                         return axiosAuth(originalRequest);
                     }
                 })
-                .catch(_ => {
+                .catch((error) => {
+                    processQueue(error, null);
                     Logout();
+                    return Promise.reject(error);
+                })
+                .finally(() => {
+                    isRefreshing = false;
                 });
         }
+
+        return Promise.reject(error);
     }
 );
