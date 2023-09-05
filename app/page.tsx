@@ -1,11 +1,13 @@
-import Chat from "@/components/chat";
+"use client";
+import Chat from "@/components/chat/chat";
 import Layout from "@/components/layout";
 import React from "react";
 
 export default function Home() {
-  return (
+
+    return (
       <Layout>
         <Chat />
       </Layout>
-  )
+    )
 }
