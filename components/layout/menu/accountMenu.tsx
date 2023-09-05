@@ -3,7 +3,7 @@ import ProfileIcon from "@/assets/icons/profileIcon";
 import Link from "next/link";
 import SettingsIcon from "@/assets/icons/settingsIcon";
 import LogoutIcon from "@/assets/icons/logoutIcon";
-import Logout from "@/lib/logout";
+import Logout from "@/lib/functions/logout";
 import {useRouter} from "next/navigation";
 import {useAuthContext} from "@/contexts/authContext";
 
