@@ -18,7 +18,7 @@ export default function Header({buttonRef, isOpen, setIsOpen}: Props) {
     const ChatTitle = ({ className }: { className?: string }) => (
         <h2 className={`${className} truncate`}>
             <span className="mr-2 lg:mr-6">#</span>
-            {chatSession && chatSession.title || getDefaultChatSessionTitle(chatSession!)}
+            {chatSession?.title || getDefaultChatSessionTitle(chatSession)}
         </h2>
     );
 
