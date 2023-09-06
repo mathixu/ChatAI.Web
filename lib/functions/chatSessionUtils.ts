@@ -34,12 +34,27 @@ const monthIsSame = (date1: Date, date2: Date): boolean => {
     return date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
 };
 
-export const getDefaultChatSessionTitle = (session: ChatSession): string => {
-    const createdAt = session.createdAt;
+export const getDefaultChatSessionTitle = (session: ChatSession | null): string => {
+    const createdAt = session?.createdAt || new Date();
     const month = String(createdAt.getMonth() + 1).padStart(2, '0');
     const day = String(createdAt.getDate()).padStart(2, '0');
     const hours = String(createdAt.getHours()).padStart(2, '0');
     const minutes = String(createdAt.getMinutes()).padStart(2, '0');
 
     return `New Chat ${month}/${day} ${hours}:${minutes}`;
+}
+
+export const formatOpenAIModel = (model: string): string => {
+    switch (model) {
+        case 'gpt4':
+            return 'gpt-4';
+        case 'gpt432k':
+            return 'gpt-4-32k';
+        case 'gpt35turbo':
+            return 'gpt-3.5-turbo';
+        case 'gpt35turbo16k':
+            return 'gpt-3.5-turbo-16k';
+        default:
+            return model;
+    }
 }

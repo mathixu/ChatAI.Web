@@ -6,6 +6,7 @@ import {useSearchParams} from "next/navigation";
 import {useApiAuth} from "@/lib/hooks/useApiAuth";
 import ChatInput from "@/components/chat/chatInput";
 import MessageList from "@/components/chat/messageList";
+import ChatSession from "@/types/chatSession";
 
 export default function Chat() {
 
@@ -39,7 +40,12 @@ export default function Chat() {
         if (chatId) {
             fetchChat(chatId);
         } else {
-            handleChatSession(null);
+
+            handleChatSession({
+                model: "gpt4",
+                systemInstruction: "You're an AI assistant who answers all your users' questions."
+            } as ChatSession);
+
             setIsSuccess(true);
         }
     }, [searchParams]);

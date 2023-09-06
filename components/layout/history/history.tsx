@@ -19,7 +19,7 @@ export default function History() {
                 setIsSubmitting(true)
                 const res = await getAllChats();
 
-                const sortedChats = sortChatsByUpdatedAt(fakeSessions);
+                const sortedChats = sortChatsByUpdatedAt(res);
 
                 setChatSessions(sortedChats);
                 setIsSubmitting(false);
