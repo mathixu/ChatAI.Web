@@ -23,8 +23,6 @@ export const ChatContextProvider = ({children}: {children: React.ReactNode}) => 
 
     const handleChatSession = (session: ChatSession | null) => {
         setLocalChatSession(session ? {...session} : null);
-
-        console.log("ChatSession: ", session)
     }
 
     const values: ChatContextData = {
