@@ -1,5 +1,9 @@
+"use client";
 import React from "react";
 import ShowSidebarIcon from "@/assets/icons/showSidebarIcon";
+import {useChatContext} from "@/contexts/chatContext";
+import {formatOpenAIModel, getDefaultChatSessionTitle} from "@/lib/functions/chatSessionUtils";
+import ChatSession from "@/types/chatSession";
 
 interface Props {
     buttonRef: React.MutableRefObject<HTMLButtonElement | null>;
@@ -9,10 +13,12 @@ interface Props {
 
 export default function Header({buttonRef, isOpen, setIsOpen}: Props) {
 
+    const {chatSession} = useChatContext();
+
     const ChatTitle = ({ className }: { className?: string }) => (
         <h2 className={`${className} truncate`}>
             <span className="mr-2 lg:mr-6">#</span>
-            New Chat 08/15 17h14
+            {chatSession && chatSession.title || getDefaultChatSessionTitle(chatSession!)}
         </h2>
     );
 
@@ -48,18 +54,43 @@ export default function Header({buttonRef, isOpen, setIsOpen}: Props) {
 }
 
 const Model = () => {
+
+    const {chatSession, handleChatSession} = useChatContext();
+
+    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        if(chatSession?.id) return;
+
+        const model = event.target.value;
+        handleChatSession({...chatSession as ChatSession, model});
+    }
+
     return (
-        <div className={"hidden sm:block min-w-fit bg-gray-300 w-fit dark:bg-gray-700 px-2 py-1 rounded-2xl"}>
-            <p className={"text-sm"}>gpt-3.5-turbo</p>
+        <div className={"hidden sm:block min-w-fit text-sm bg-gray-300 w-fit dark:bg-gray-700 px-2 py-1 rounded-2xl"}>
+            {
+                chatSession?.id ? <p>{formatOpenAIModel(chatSession.model)}</p>
+                    :
+                    (
+                        <select onChange={handleChange} name="model" id="model-select" className={"bg-gray-300 dark:bg-gray-700 rounded-2xl"}>
+                            <option value="gpt4">gpt-4</option>
+                            <option value="gpt432k">gpt-4-32k</option>
+                            <option value="gpt35turbo">gpt-3.5-turbo</option>
+                            <option value="gpt35turbo16k">gpt-3.5-turbo-16k</option>
+                        </select>
+                    )
+            }
+
         </div>
-    )
+    );
 }
 
 const EstimatedCost = () => {
+
+    const {chatSession} = useChatContext();
+
     return (
         <div className={"flex flex-col items-center bg-gray-300 dark:bg-gray-700 px-3 lg:px-2 py-1 rounded-2xl min-w-fit"}>
             <p className={"text-center text-sm font-bold flex items-center"}><span className={"hidden lg:block lg:mr-2"}>Cost: </span>$0.016</p>
-            <p className={"text-center text-sm hidden lg:block"}>for 8 messages</p>
+            <p className={"text-center text-sm hidden lg:block"}>for {chatSession?.messages?.length || 0 } message{chatSession?.messages?.length && "s"}</p>
         </div>
     )
 }
